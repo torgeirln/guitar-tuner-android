@@ -2,8 +2,8 @@ package com.torgeirln.guitartuner.ui.tuner;
 
 import androidx.lifecycle.LiveData;
 
-import com.torgeirln.guitartuner.domain.interactors.RecorderInteractor;
-import com.torgeirln.guitartuner.ui.base.BaseViewModel;
+import com.torgeirln.guitartuner.domain.interactors.GetFrequencyStreamUseCase;
+import com.torgeirln.guitartuner.domain.interactors.GetTargetStreamUseCase;
 import com.torgeirln.guitartuner.ui.base.BaseViewModel2;
 
 import javax.inject.Inject;
@@ -12,22 +12,27 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import timber.log.Timber;
 
 public class TunerViewModel extends BaseViewModel2 {
-    private final RecorderInteractor recorderInteractor;
+    private final GetFrequencyStreamUseCase getFrequencyStreamUseCase;
+    private final GetTargetStreamUseCase getTargetStreamUseCase;
 
     @Inject
-    public TunerViewModel(@NonNull RecorderInteractor recorderInteractor) {
-        this.recorderInteractor = recorderInteractor;
+    public TunerViewModel(
+            @NonNull GetFrequencyStreamUseCase getFrequencyStreamUseCase,
+            @NonNull GetTargetStreamUseCase getTargetStreamUseCase
+    ) {
+        this.getFrequencyStreamUseCase = getFrequencyStreamUseCase;
+        this.getTargetStreamUseCase = getTargetStreamUseCase;
     }
 
     @NonNull
     public LiveData<Integer> getFrequencyLiveData() { //TODO: Do not send integer. Better name?
         Timber.d("getFrequencyLiveData: ");
-        return getLiveDataFrom(recorderInteractor::getFrequencyStream);
+        return getLiveDataFrom(getFrequencyStreamUseCase::execute);
     }
 
     @NonNull
     public LiveData<Integer> getTargetLiveData() {
-        return getLiveDataFrom(recorderInteractor::getTargetStream);
+        return getLiveDataFrom(getTargetStreamUseCase::execute);
     }
 
 }

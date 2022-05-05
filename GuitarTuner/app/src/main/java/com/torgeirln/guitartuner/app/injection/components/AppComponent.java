@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.torgeirln.guitartuner.app.injection.modules.ServiceModule;
 import com.torgeirln.guitartuner.app.injection.modules.ViewModelModule;
+import com.torgeirln.guitartuner.ui.base.BaseActivity;
 import com.torgeirln.guitartuner.ui.base.BaseFragment;
 import com.torgeirln.guitartuner.ui.tuner.TunerFragment;
 
@@ -15,6 +16,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ViewModelModule.class, ServiceModule.class})
 public interface AppComponent {
+
+    void inject(BaseActivity baseActivity);
 
     void inject(BaseFragment baseFragment);
 

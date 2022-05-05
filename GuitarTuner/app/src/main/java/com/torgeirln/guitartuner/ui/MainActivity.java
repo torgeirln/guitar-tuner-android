@@ -15,6 +15,7 @@ public class MainActivity extends PermissionsActivity {
     private static final int PERMISSIONS_REQUEST_CODE = 1;
 
     private ActivityMainBinding binding;
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MainActivity extends PermissionsActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        viewModel = getViewModel(MainViewModel.class);
 
         if (savedInstanceState == null) {
             requestPermissions();
@@ -39,6 +41,7 @@ public class MainActivity extends PermissionsActivity {
     private void onPermissionReceived(@NonNull String permission, boolean permissionGranted) {
         Timber.d("requestPermissions: Permission %s, granted = %s", permission, permissionGranted);
         if (permission.equals(Manifest.permission.RECORD_AUDIO)) {
+            viewModel.startTuner();
             showFragment(TunerFragment.getInstance(), R.id.fragment_container);
         }
     }

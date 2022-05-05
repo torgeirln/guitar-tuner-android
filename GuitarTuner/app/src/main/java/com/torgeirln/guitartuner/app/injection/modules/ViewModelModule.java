@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.torgeirln.guitartuner.app.injection.annotations.ViewModelKey;
+import com.torgeirln.guitartuner.ui.MainViewModel;
 import com.torgeirln.guitartuner.ui.base.ViewModelProviderFactory;
 import com.torgeirln.guitartuner.ui.tuner.TunerViewModel;
 
@@ -16,6 +17,11 @@ public abstract class ViewModelModule {
 
     @Binds
     public abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelProviderFactory factory);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel.class)
+    public abstract ViewModel bindMainViewModel(MainViewModel viewModel);
 
     @Binds
     @IntoMap

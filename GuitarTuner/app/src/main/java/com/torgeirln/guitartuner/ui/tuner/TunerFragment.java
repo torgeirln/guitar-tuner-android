@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.torgeirln.guitartuner.databinding.FragmentTunerBinding;
+import com.torgeirln.guitartuner.domain.models.Frequency;
 import com.torgeirln.guitartuner.ui.base.BaseFragment;
 
 import timber.log.Timber;
@@ -42,17 +43,17 @@ public class TunerFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel.getFrequencyLiveData().observe(getViewLifecycleOwner(), this::onFrequencyChanged);
-        viewModel.getTargetLiveData().observe(getViewLifecycleOwner(), this::onTargetChanged);
+        viewModel.getCurrentFrequencyLiveData().observe(getViewLifecycleOwner(), this::onFrequencyChanged);
+        viewModel.getTargetFrequencyLiveData().observe(getViewLifecycleOwner(), this::onTargetChanged);
     }
 
-    private void onFrequencyChanged(@NonNull Integer value) {
+    private void onFrequencyChanged(@NonNull Frequency frequency) {
         Timber.d("onFrequencyChanged: %s", viewModel);
-        binding.tunerIndicator.setValue(value);
+        binding.tunerIndicator.setValue(frequency.value);
     }
 
-    private void onTargetChanged(@NonNull Integer target) {
-        binding.tunerIndicator.setTarget(target);
+    private void onTargetChanged(@NonNull Frequency frequency) {
+        binding.tunerIndicator.setTarget(frequency.value);
     }
 
 }

@@ -4,23 +4,24 @@ import androidx.annotation.NonNull;
 
 import com.torgeirln.guitartuner.domain.base.AsyncUseCaseOut;
 import com.torgeirln.guitartuner.domain.contracts.ITunerService;
+import com.torgeirln.guitartuner.domain.models.Frequency;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
 
-public class GetFrequencyStreamUseCase extends AsyncUseCaseOut<Flowable<Integer>> {
+public class GetCurrentFrequencyStreamUseCase extends AsyncUseCaseOut<Flowable<Frequency>> {
     private final ITunerService tunerService;
 
     @Inject
-    public GetFrequencyStreamUseCase(@NonNull ITunerService tunerService) {
+    public GetCurrentFrequencyStreamUseCase(@NonNull ITunerService tunerService) {
         this.tunerService = tunerService;
     }
 
     @NonNull
     @Override
-    protected Flowable<Integer> executeAsync() {
-        return Flowable.just(400).distinctUntilChanged();
+    protected Flowable<Frequency> executeAsync() {
+        return tunerService.getCurrentFrequencyStream();
     }
 
 }

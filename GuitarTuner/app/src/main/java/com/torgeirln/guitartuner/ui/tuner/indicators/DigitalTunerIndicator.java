@@ -36,12 +36,12 @@ public class DigitalTunerIndicator extends ConstraintLayout {
         binding.targetValue.setText(VALUE_UNKNOWN);
     }
 
-    public void setValue(@Nullable Integer value) {
+    public void setValue(@Nullable Float value) {
         String stringValue = value == null ? VALUE_UNKNOWN : String.valueOf(value);
         binding.currentValue.setText(stringValue);
     }
 
-    public void setTarget(@Nullable Integer target) {
+    public void setTarget(@Nullable Float target) {
         String stringValue = target == null ? VALUE_UNKNOWN : String.valueOf(target);
         binding.targetValue.setText(stringValue);
     }

@@ -2,37 +2,36 @@ package com.torgeirln.guitartuner.ui.tuner;
 
 import androidx.lifecycle.LiveData;
 
-import com.torgeirln.guitartuner.domain.interactors.GetFrequencyStreamUseCase;
-import com.torgeirln.guitartuner.domain.interactors.GetTargetStreamUseCase;
+import com.torgeirln.guitartuner.domain.interactors.GetCurrentFrequencyStreamUseCase;
+import com.torgeirln.guitartuner.domain.interactors.GetTargetFrequencyStreamUseCase;
+import com.torgeirln.guitartuner.domain.models.Frequency;
 import com.torgeirln.guitartuner.ui.base.BaseViewModel2;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.annotations.NonNull;
-import timber.log.Timber;
 
 public class TunerViewModel extends BaseViewModel2 {
-    private final GetFrequencyStreamUseCase getFrequencyStreamUseCase;
-    private final GetTargetStreamUseCase getTargetStreamUseCase;
+    private final GetCurrentFrequencyStreamUseCase getCurrentFrequencyStreamUseCase;
+    private final GetTargetFrequencyStreamUseCase getTargetFrequencyStreamUseCase;
 
     @Inject
     public TunerViewModel(
-            @NonNull GetFrequencyStreamUseCase getFrequencyStreamUseCase,
-            @NonNull GetTargetStreamUseCase getTargetStreamUseCase
+            @NonNull GetCurrentFrequencyStreamUseCase getCurrentFrequencyStreamUseCase,
+            @NonNull GetTargetFrequencyStreamUseCase getTargetFrequencyStreamUseCase
     ) {
-        this.getFrequencyStreamUseCase = getFrequencyStreamUseCase;
-        this.getTargetStreamUseCase = getTargetStreamUseCase;
+        this.getCurrentFrequencyStreamUseCase = getCurrentFrequencyStreamUseCase;
+        this.getTargetFrequencyStreamUseCase = getTargetFrequencyStreamUseCase;
     }
 
     @NonNull
-    public LiveData<Integer> getFrequencyLiveData() { //TODO: Do not send integer. Better name?
-        Timber.d("getFrequencyLiveData: ");
-        return getLiveDataFrom(getFrequencyStreamUseCase::execute);
+    public LiveData<Frequency> getCurrentFrequencyLiveData() {
+        return getLiveDataFrom(getCurrentFrequencyStreamUseCase::execute);
     }
 
     @NonNull
-    public LiveData<Integer> getTargetLiveData() {
-        return getLiveDataFrom(getTargetStreamUseCase::execute);
+    public LiveData<Frequency> getTargetFrequencyLiveData() {
+        return getLiveDataFrom(getTargetFrequencyStreamUseCase::execute);
     }
 
 }
